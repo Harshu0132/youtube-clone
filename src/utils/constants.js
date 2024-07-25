@@ -1,8 +1,10 @@
 export const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY
 
-export const YOUTUBE_URL = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&chart=mostPopular&regionCode=IN&key=" + YOUTUBE_API_KEY
+export const YOUTUBE_URL = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=12&chart=mostPopular&regionCode=IN&key=" + YOUTUBE_API_KEY
 
 export const SEARCH_LIST_BY_KEYWORD = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q="
+
+export const YT_SUGGESTION_API_URL = "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="
 
 export const SEARCH_ICON = "https://cdn3.iconfinder.com/data/icons/feather-5/24/search-512.png"
 

@@ -7,7 +7,7 @@ const searchSlice = createSlice({
     },
     reducers: {
         addSuggestion: (state, action) => {
-            state.suggestion = {...state.suggestion, ...action.payload}
+            state.suggestion = { ...state.suggestion, ...action.payload }
         }
     }
 })

@@ -8,7 +8,7 @@ const videoSlice = createSlice({
     },
     reducers: {
         addVideos: (state, action) => {
-            state.videos = action.payload
+            state.videos = [...state.videos, ...action.payload]
         },
         addSearchVideos: (state, action) => {
             state.searchVideos = action.payload

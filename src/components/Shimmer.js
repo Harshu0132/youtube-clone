@@ -20,12 +20,12 @@ const Shimmer = () => {
         </div>
     )
 
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= 6; i++) {
         shimmerContent.push(ShimmerJSX)
     }
 
     return (
-        <div className="flex flex-wrap absolute -z-10">
+        <div className="flex flex-wrap -z-10">
             {
                 shimmerContent.map((s, i) => <div key={s + i}>{s}</div>)
             }

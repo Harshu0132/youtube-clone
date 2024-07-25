@@ -2,7 +2,6 @@
   "name": "prime-tube",
   "version": "1.0.0",
   "description": "building clone of youtube, & try to give prime UI touch ",
-  "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
