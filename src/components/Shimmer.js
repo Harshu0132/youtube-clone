@@ -1,3 +1,5 @@
+import { ColorRing } from "react-loader-spinner"
+
 const Shimmer = () => {
     const shimmerContent = []
 
@@ -34,3 +36,22 @@ const Shimmer = () => {
 }
 
 export default Shimmer;
+
+export const WatchVideoShimmer = () => {
+    return (
+        <div className="z-0">
+            <div className="">
+                <ColorRing
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                />
+            </div>
+
+        </div>
+    )
+}
