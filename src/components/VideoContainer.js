@@ -12,7 +12,6 @@ const VideoContainer = () => {
     const [loading] = useState(true)
 
     const fetchYoutubeData = async () => {
-        console.log(pageToken.current);
         if (pageToken.current === false) return
 
         const data = await fetch(YOUTUBE_URL + (pageToken.current ? "&pageToken=" + pageToken.current : ""))
