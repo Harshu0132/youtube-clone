@@ -15,6 +15,8 @@ export const YT_SUGGESTION_API_URL = "http://suggestqueries.google.com/complete/
 
 export const YOUTUBE_URL = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=12&chart=mostPopular&regionCode=IN&key=" + YOUTUBE_API_KEY
 
-export const SEARCH_LIST_BY_KEYWORD = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q="
+export const SEARCH_LIST_BY_KEYWORD = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q="
 
 export const YOUTUBE_CATEGORY = "https://youtube.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode=US&key=" + YOUTUBE_API_KEY
+
+export const YOUTUBE_VIDEOS_BY_CHANNEl_ID = 'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&key='+ YOUTUBE_API_KEY+ '&id='

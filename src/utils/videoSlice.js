@@ -4,7 +4,8 @@ const videoSlice = createSlice({
     name: 'video',
     initialState: {
         videos: [],
-        searchVideos: []
+        searchVideos: [],
+        categoryVideos: []
     },
     reducers: {
         addVideos: (state, action) => {
@@ -12,10 +13,13 @@ const videoSlice = createSlice({
         },
         addSearchVideos: (state, action) => {
             state.searchVideos = action.payload
+        },
+        addCategoryVideos: (state, action) => {
+            state.categoryVideos = [...state.videos, ...action.payload]
         }
     }
 })
 
-export const { addVideos, addSearchVideos } = videoSlice.actions
+export const { addVideos, addSearchVideos, addCategoryVideos } = videoSlice.actions
 
 export default videoSlice.reducer;

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SEARCH_ICON, SEARCH_LIST_BY_KEYWORD, YOUTUBE_API_KEY, YT_SUGGESTION_API_URL } from "../utils/constants";
 import { addSearchVideos } from "../utils/videoSlice";
 import { useNavigate } from 'react-router-dom'
+import useSearchVideos from "../hooks/useSearchVideos"
 
 const SearchBar = () => {
     const [searchText, setSearchText] = useState("");
@@ -23,13 +24,8 @@ const SearchBar = () => {
     }
 
     const handleSearch = async (query) => {
-        try {
-            if (query.length === 0) return
-            const data = await fetch(SEARCH_LIST_BY_KEYWORD + query + "&key=" + YOUTUBE_API_KEY);
-            const json = await data.json()
-            dispatch(addSearchVideos(json.items))
-            navigate("/results?search_query=" + query)
-        } catch (error) { }
+        if (query.length === 0) return
+        navigate("/results?search_query=" + query)
     }
 
     const handleBlur = (s) => {
@@ -65,7 +61,7 @@ const SearchBar = () => {
                             <>
                                 {
                                     searchResult[searchText] &&
-                                    <div className="w-1/2 rounded-lg my-2 px-2 text-black bg-white border border-gray-200 shadow-xl absolute">
+                                    <div className="w-1/2 z-10 rounded-lg my-2 px-2 text-black bg-white border border-gray-200 shadow-xl absolute">
                                         {
                                             searchResult[searchText].map((s) =>
                                                 <div key={s}>

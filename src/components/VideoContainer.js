@@ -4,6 +4,7 @@ import { YOUTUBE_URL } from "../utils/constants"
 import Shimmer from "./Shimmer"
 import { useDispatch, useSelector } from 'react-redux'
 import { addVideos } from '../utils/videoSlice'
+import ButtonList from "./ButtonList"
 
 const VideoContainer = () => {
     const dispatch = useDispatch()
@@ -52,15 +53,17 @@ const VideoContainer = () => {
         )
 
     return (
-        <div className='flex flex-wrap'>
-            {
-                youtubeData.map((video, i) => <VideoCard key={video.id + i} info={video} />)
-            }
+        <div>
+            
+            <div className='flex flex-wrap'>
+                {
+                    youtubeData.map((video, i) => <VideoCard key={video.id + i} info={video} />)
+                }
+                {
+                    loading && <Shimmer />
+                }
 
-            {
-                loading && <Shimmer />
-            }
-
+            </div>
         </div>
     )
 }
