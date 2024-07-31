@@ -9,12 +9,13 @@ const ButtonList = () => {
     const [scrollCount, setScrollCount] = useState(0);
     const [maxWidth, setMaxWidth] = useState(0)
     const scrollRef = useRef(null)
+    const [isMouseScroll, setIsMouseScroll] = useState(true)
     const isMenuOpen = useSelector(store => store.app.isMenuOpen)
 
     const fetchData = async () => {
         const data = await fetch(YOUTUBE_CATEGORY);
         const json = await data.json();
-        setYoutubeCategory(json.items)  
+        setYoutubeCategory(json.items)
     }
 
     const handleLeftClick = () => {
@@ -29,38 +30,44 @@ const ButtonList = () => {
         setMaxWidth(scrollRef.current.scrollWidth - scrollRef.current.clientWidth)
         setScrollCount(() => scrollRef.current.scrollLeft + 200)
         scrollRef.current.scrollLeft += 200
-    }   
+    }
 
     const handleMouseMove = (e) => {
         scrollRef.current.classList.remove("scroll-smooth")
         if (scrollRef.current.isDragging) {
+            setIsMouseScroll(() => true)
             scrollRef.current.scrollLeft -= e.movementX
             setScrollCount(() => scrollRef.current.scrollLeft - e.movementX)
             setMaxWidth(scrollRef.current.scrollWidth - scrollRef.current.clientWidth)
         }
-    }
 
+    }
     useEffect(() => {
         fetchData()
     }, [])
 
-
-    useEffect(() => { }, [])
+    
 
     if (!youtubeCategory) return
 
     return (
         <>
             <div className={'mx-3 relative ' + (isMenuOpen ? " w-[70vw]" : " w-[90vw]")}>
-                <div className={'flex overflow-x-scroll gap-3 cursor-grab no-scroll scrollTab'}
+                <div className={'flex overflow-x-scroll gap-3 cursor-grab no-scroll'}
                     ref={scrollRef}
-                    onMouseDown={() => scrollRef.current.isDragging = true}
+                    onMouseDown={() => {
+                        scrollRef.current.isDragging = true
+                    }}
                     onMouseMove={handleMouseMove}
-                    onMouseLeave={() => scrollRef.current.isDragging = false}
-                    onMouseUp={() => scrollRef.current.isDragging = false}
+                    onMouseLeave={() => {
+                        scrollRef.current.isDragging = false
+                    }}
+                    onMouseUp={() => {
+                        scrollRef.current.isDragging = false
+                    }}
                 >
                     {
-                        youtubeCategory.map(data => <Button  key={data.id} data={data.snippet} />)
+                        youtubeCategory.map(data => <Button isMouseScroll={isMouseScroll} setIsMouseScroll={setIsMouseScroll} key={data.id} data={data.snippet} />)
                     }
                 </div>
                 <div className={'absolute top-0 h-full w-28 flex items-center bg-gradient-to-r from-white  cursor-pointer' + (scrollCount >= 5 ? " block" : " hidden")}>

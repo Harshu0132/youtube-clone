@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { addCategoryVideos, addSearchVideos } from '../utils/videoSlice'
 import { useDispatch } from 'react-redux'
 import { SEARCH_LIST_BY_KEYWORD, YOUTUBE_API_KEY } from '../utils/constants'
 import { useNavigate } from 'react-router-dom'
 
-const Button = ({ data }) => {
+const Button = ({ data, isMouseScroll, setIsMouseScroll }) => {
   const { title } = data
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  // useEffect(() => {
+  // }, [isMouseScroll])
+
   const handleBtnClick = async () => {
+    setIsMouseScroll(() => false)
+
+    if (isMouseScroll) return
+    console.log(isMouseScroll);
     try {
       if (title.length === 0) return
 

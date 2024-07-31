@@ -43,8 +43,8 @@ const SearchBar = () => {
 
     return (
         <>
-            <div className='col-span-8 w-full '>
-                <div className="flex items-center justify-center">
+            <div className='col-span-8  flex items-center'>
+                <div className="flex items-center w-full">
                     <input
                         onFocus={() => setShowSuggestion(true)}
                         onBlur={handleBlur}
@@ -61,7 +61,7 @@ const SearchBar = () => {
                             <>
                                 {
                                     searchResult[searchText] &&
-                                    <div className="w-1/2 z-10 rounded-lg my-2 px-2 text-black bg-white border border-gray-200 shadow-xl absolute">
+                                    <div className="w-1/2 z-10 rounded-lg px-2 text-black bg-white border border-gray-200 shadow-xl absolute">
                                         {
                                             searchResult[searchText].map((s) =>
                                                 <div key={s}>
