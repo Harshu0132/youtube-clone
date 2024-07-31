@@ -14,7 +14,8 @@ const App = () => {
             element: <Body />,
             children: [
                 {
-                    path: "/",
+                    // path: "/",
+                    index: true,
                     element: <MainContainer />
                 },
                 {

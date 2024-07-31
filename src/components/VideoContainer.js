@@ -3,8 +3,7 @@ import VideoCard from "./VideoCard"
 import { YOUTUBE_URL } from "../utils/constants"
 import Shimmer from "./Shimmer"
 import { useDispatch, useSelector } from 'react-redux'
-import { addVideos } from '../utils/videoSlice'
-import ButtonList from "./ButtonList"
+import { addVideos, appendVideos } from '../utils/videoSlice'
 
 const VideoContainer = () => {
     const dispatch = useDispatch()
@@ -14,12 +13,13 @@ const VideoContainer = () => {
 
     const fetchYoutubeData = async () => {
         if (pageToken.current === false) return
-
+        console.log(pageToken.current);
         const data = await fetch(YOUTUBE_URL + (pageToken.current ? "&pageToken=" + pageToken.current : ""))
         const json = await data.json()
         if (json.nextPageToken) {
+            if (pageToken.current === null) dispatch(addVideos(json.items))
+            else dispatch(appendVideos(json.items))
             pageToken.current = json.nextPageToken
-            dispatch(addVideos(json.items))
         } else {
             pageToken.current = false
         }
@@ -41,8 +41,10 @@ const VideoContainer = () => {
 
 
     useEffect(() => {
-        const scrollEvent = document.addEventListener("scroll", handleScrollEvent)
-        return () => removeEventListener(scrollEvent, handleScrollEvent)
+        document.addEventListener('scroll', handleScrollEvent)
+        return () => {
+            document.removeEventListener('scroll', handleScrollEvent)
+        }
     }, [])
 
     if (!youtubeData)
@@ -54,7 +56,7 @@ const VideoContainer = () => {
 
     return (
         <div>
-            
+
             <div className='flex flex-wrap'>
                 {
                     youtubeData.map((video, i) => <VideoCard key={video.id + i} info={video} />)

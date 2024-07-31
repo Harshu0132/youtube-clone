@@ -10,7 +10,6 @@ const SearchVideos = () => {
 
   const [searchParams] = useSearchParams()
   const dispatch = useDispatch();
-  const navigate = useNavigate()
 
   const handleSearch = async (query) => {
     try {
@@ -25,7 +24,7 @@ const SearchVideos = () => {
     const scrollHeight = document.documentElement.scrollHeight
     const scrollTop = document.documentElement.scrollTop
     const innerHeight = window.innerHeight
-    console.log(scrollHeight, innerHeight,scrollTop);
+    console.log(scrollHeight, innerHeight, scrollTop);
   }
 
   useEffect(() => {
@@ -34,7 +33,9 @@ const SearchVideos = () => {
 
   useEffect(() => {
     document.addEventListener('scroll', handleScroll)
-    return () => removeEventListener('scroll', handleScroll)
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
 
