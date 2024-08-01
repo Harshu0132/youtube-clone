@@ -14,16 +14,16 @@ const Header = () => {
 
 
     return (
-        <div className='w-screen'>
-            <div className='grid grid-flow-col m-2 p-2 h-[10vh] shadow-lg my-auto'>
+        <div className='w-screen dark:bg-black bg-white'>
+            <div className='grid grid-flow-col m-2 p-2 h-[11vh] shadow-lg my-auto'>
                 <div className={'flex col-span-2' + (showSearchBar ? " hidden" : " block")}>
                     <button onClick={toggleMenuHandler}>
-                        <img className="h-7" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr-cwMeLLj8MfIo3HoXJKFcOFB1g9U4DDMHA&sz" alt="hamburger" />
+                        <img className="w-10 hover:bg-gray-200 rounded-full md:p-2 p-1 transition ease-linear delay-75" src="https://cdn-icons-png.flaticon.com/128/8212/8212733.png" alt="hamburger" />
                     </button>
 
                     <div className='flex items-center'>
-                        <img className="h-12" src="https://static.vecteezy.com/system/resources/thumbnails/018/930/575/small_2x/youtube-logo-youtube-icon-transparent-free-png.png" alt="Youtube" />
-                        <h1>YouTube</h1>
+                        <img className="h-14" src="https://static.vecteezy.com/system/resources/thumbnails/018/930/575/small_2x/youtube-logo-youtube-icon-transparent-free-png.png" alt="Youtube" />
+                        <h1 className='dark:text-white'>YouTube</h1>
                     </div>
                 </div>
                 <div className={'flex col-span-2 cursor-pointer' + (showSearchBar ? " block" : " hidden")}>

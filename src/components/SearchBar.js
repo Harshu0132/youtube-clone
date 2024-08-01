@@ -33,6 +33,7 @@ const SearchBar = ({ showSearchBar }) => {
     }
 
     useEffect(() => {
+        console.log(showSearchBar);
     }, [showSearchBar])
 
     useEffect(() => {
