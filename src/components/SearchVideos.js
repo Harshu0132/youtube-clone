@@ -24,7 +24,6 @@ const SearchVideos = () => {
     const scrollHeight = document.documentElement.scrollHeight
     const scrollTop = document.documentElement.scrollTop
     const innerHeight = window.innerHeight
-    console.log(scrollHeight, innerHeight, scrollTop);
   }
 
   useEffect(() => {

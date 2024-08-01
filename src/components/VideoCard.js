@@ -26,8 +26,8 @@ export const SearchVideoCard = ({ info }) => {
     <div className=' px-3 my-4'>
       <div className='cursor-pointer'>
         <Link to={"/watch?v=" + videoId}>
-          <div className='flex'>
-            <img className='rounded-lg object-cover' src={thumbnails.medium.url} alt="thumbnail" />
+          <div className='flex md:flex-row flex-col bg-gray-100 md:bg-white'>
+            <img className='rounded-lg object-cover md:p-0 p-3' src={thumbnails.medium.url} alt="thumbnail" />
             <div className='p-4'>
               <h1 className='font-bold'>{title}</h1>
               <h2 className='text-gray-600 text-md'>{channelTitle}</h2>

@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Button from './Button'
 import { YOUTUBE_CATEGORY } from '../utils/constants'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { addYoutubeCategories } from '../utils/videoSlice'
 
 const ButtonList = () => {
-    const [youtubeCategory, setYoutubeCategory] = useState(null);
+    // const [youtubeCategory, setYoutubeCategory] = useState(null);
+    const youtubeCategory = useSelector((store)=>store.youtubeData.youtubeCategories)
     const [scrollCount, setScrollCount] = useState(0);
     const [maxWidth, setMaxWidth] = useState(0)
     const scrollRef = useRef(null)
@@ -13,10 +15,12 @@ const ButtonList = () => {
     const isMenuOpen = useSelector(store => store.app.isMenuOpen)
     const [mouseDownPos, setMouseDownPos] = useState({ x: 0, y: 0, time: 0 })
 
+    const dispatch = useDispatch()
+
     const fetchData = async () => {
         const data = await fetch(YOUTUBE_CATEGORY);
         const json = await data.json();
-        setYoutubeCategory(json.items)
+        dispatch(addYoutubeCategories(json.items))
     }
 
     const handleLeftClick = () => {
@@ -60,8 +64,6 @@ const ButtonList = () => {
         fetchData()
     }, [])
 
-
-
     if (!youtubeCategory) return
 
     return (
@@ -72,7 +74,6 @@ const ButtonList = () => {
                     ref={scrollRef}
                     onMouseDown={(e) => {
                         setMouseDownPos({ x: e.clientX, y: e.clientY, time: new Date().getTime() })
-                        console.log(new Date())
                         scrollRef.current.isDragging = true
                     }}
                     onMouseMove={handleMouseMove}

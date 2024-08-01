@@ -4,10 +4,12 @@ import LiveMessage from "./LiveMessage"
 import { useDispatch, useSelector } from "react-redux";
 import { addLiveChat } from "../utils/chatSlice"
 import { generateDesc, generateName } from "../helper/randomGenerator"
+import { IoIosClose } from "react-icons/io";
 
 const LiveChat = () => {
     const dispatch = useDispatch()
     const [replay, setReply] = useState("")
+    const [showChat, isShowChat] = useState(true)
     const liveChat = useSelector(store => store.chat.liveChat)
 
     const replyHandler = () => {
@@ -32,19 +34,39 @@ const LiveChat = () => {
 
     return (
         <>
-            <div className="mx-3 px-3 box-border h-[28rem] flex flex-col-reverse w-full rounded-lg border border-gray-400 overflow-y-scroll">
-                {liveChat &&
-                    liveChat.map((live, i) => (
-                        <LiveMessage key={live.name + i} message={live} />
-                    ))
+            <div className="text-center relative">
+                {
+                    showChat ?
+                        <>
+                            <div className="absolute right-4 top-2">
+                                {
+                                    showChat && <IoIosClose onClick={() => isShowChat((val) => !val)} className="w-8 h-auto hover:bg-slate-300 rounded-full cursor-pointer" />
+                                }
+                            </div>
+                            <div className="md:mx-3 mx-0 mt-3 md:mt-0 px-3 box-border text-start h-[28rem] flex flex-col-reverse w-full rounded-lg border border-gray-400 overflow-y-scroll">
+
+                                {liveChat &&
+                                    liveChat.map((live, i) => (
+                                        <LiveMessage key={live.name + i} message={live} />
+                                    ))
+                                }
+                            </div>
+                            <form onSubmit={(e) => e.preventDefault()}>
+                                <div className="w-full flex mx-3 my-2">
+                                    <input type="text" value={replay} className="border rounded-lg py-1 w-full border-gray-400 px-2" placeholder="Reply...." onChange={(e) => setReply(e.target.value)} />
+                                    <button disabled={!replay ? true : false} className="text-white rounded-lg bg-green-400 ms-1 px-4" onClick={replyHandler}>Reply</button>
+                                </div>
+                            </form>
+                        </>
+                        :
+
+
+                        <button onClick={() => isShowChat((val) => !val)} className="bg-gray-300 md:mt-0 mt-3 text-center px-2 py-1  rounded-lg mb-2">Show Chat</button>
                 }
+
+
+
             </div>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <div className="w-full flex mx-3 my-2">
-                    <input type="text" value={replay} className="border rounded-lg py-1 w-full border-gray-400 px-2" placeholder="Reply...." onChange={(e) => setReply(e.target.value)} />
-                    <button disabled={!replay ? true: false} className="text-white rounded-lg bg-green-400 ms-1 px-4" onClick={replyHandler}>Reply</button>
-                </div>
-            </form>
         </>
     )
 }

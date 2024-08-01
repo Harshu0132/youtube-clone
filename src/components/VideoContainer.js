@@ -13,7 +13,6 @@ const VideoContainer = () => {
 
     const fetchYoutubeData = async () => {
         if (pageToken.current === false) return
-        console.log(pageToken.current);
         const data = await fetch(YOUTUBE_URL + (pageToken.current ? "&pageToken=" + pageToken.current : ""))
         const json = await data.json()
         if (json.nextPageToken) {

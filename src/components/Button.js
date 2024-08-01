@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { SEARCH_LIST_BY_KEYWORD, YOUTUBE_API_KEY } from '../utils/constants'
 import { useNavigate } from 'react-router-dom'
 
-const Button = ({ data, isMouseScroll, setIsMouseScroll }) => {
+const Button = ({ data, isMouseScroll }) => {
   const { title } = data
   const dispatch = useDispatch()
   const navigate = useNavigate()
