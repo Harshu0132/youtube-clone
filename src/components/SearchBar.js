@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { addSuggestion } from "../utils/searchSlice"
 import { useDispatch, useSelector } from "react-redux";
-import { SEARCH_ICON, SEARCH_LIST_BY_KEYWORD, YOUTUBE_API_KEY, YT_SUGGESTION_API_URL } from "../utils/constants";
-import { addSearchVideos } from "../utils/videoSlice";
+import { SEARCH_ICON, YT_SUGGESTION_API_URL } from "../utils/constants";
 import { useNavigate } from 'react-router-dom'
-import useSearchVideos from "../hooks/useSearchVideos"
 
-const SearchBar = () => {
+const SearchBar = ({ showSearchBar }) => {
     const [searchText, setSearchText] = useState("");
     const searchResult = useSelector(store => store.search.suggestion)
     const [showSuggestion, setShowSuggestion] = useState(false)
@@ -35,6 +33,10 @@ const SearchBar = () => {
     }
 
     useEffect(() => {
+        console.log(showSearchBar);
+    }, [showSearchBar])
+
+    useEffect(() => {
         const i = setTimeout(() => {
             getSearchSuggestion()
         }, 300);
@@ -43,8 +45,8 @@ const SearchBar = () => {
 
     return (
         <>
-            <div className='col-span-8  flex items-center'>
-                <div className="flex items-center w-full">
+            <div className={'col-span-8 my-auto md:block' + (showSearchBar ? " block" : " hidden")}>
+                <div className="flex items-center">
                     <input
                         onFocus={() => setShowSuggestion(true)}
                         onBlur={handleBlur}
@@ -53,7 +55,6 @@ const SearchBar = () => {
                         <img className='object-cover w-4' src={SEARCH_ICON} alt="" />
                     </button>
                     <br />
-
                 </div>
                 <div className="flex justify-center">
                     {

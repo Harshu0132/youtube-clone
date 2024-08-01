@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
-import { closeMenu } from "../utils/appSlice"
+import { closeMenu, toggleMenuOpen } from "../utils/appSlice"
 import CommentBox from "./CommentBox"
 import LiveChat from './LiveChat'
 import { WatchVideoShimmer } from './Shimmer'
@@ -10,17 +10,25 @@ const WatchVideo = () => {
   const [searchParams] = useSearchParams()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
-
+  const [isMdOrAbove, setIsMdOrAbove] = useState(false)
 
   useEffect(() => {
-    
     window.scrollTo(0, 0);
-    dispatch(closeMenu())
   }, [])
 
+  const handleResize = () => {
+    setIsMdOrAbove(window.innerWidth >= 768)
+  }
+
+  useEffect(() => {
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    if (isMdOrAbove) dispatch(closeMenu())
+    return () => window.removeEventListener('resize', handleResize)
+  }, [isMdOrAbove])
 
   return (
-    <div className='p-3 mx-5 w-screen '>
+    <div className='p-3 mx-5 w-screen'>
       <div className='grid grid-cols-12'>
         <div className='col-span-8 bg-gray-950 relative rounded-lg '>
           {

@@ -9,17 +9,10 @@ const Button = ({ data, isMouseScroll, setIsMouseScroll }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  // }, [isMouseScroll])
-
-  const handleBtnClick = async () => {
-    setIsMouseScroll(() => false)
-
+  const handleBtnClick = async (e) => {
     if (isMouseScroll) return
-    console.log(isMouseScroll);
     try {
       if (title.length === 0) return
-
       const data = await fetch(SEARCH_LIST_BY_KEYWORD + title + "&key=" + YOUTUBE_API_KEY);
       const json = await data.json()
       dispatch(addSearchVideos(json.items))
@@ -28,7 +21,7 @@ const Button = ({ data, isMouseScroll, setIsMouseScroll }) => {
   }
 
   return (
-    <button onClick={() => handleBtnClick()} className='rounded-lg bg-gray-200 whitespace-nowrap  px-4 py-2 my-2'>{title}</button>
+    <button onClick={(e) => handleBtnClick(e)} className='rounded-lg bg-gray-200 whitespace-nowrap  px-4 py-2 my-2'>{title}</button>
   )
 }
 
