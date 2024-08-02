@@ -1,14 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import SearchVideoContainer from "./SearchVideoContainer";
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SEARCH_LIST_BY_KEYWORD, YOUTUBE_API_KEY } from "../utils/constants";
 import { addSearchVideos, appendSearchVideos } from "../utils/videoSlice";
+import { handleMdOrMore } from "../helper/handleResize";
 
 const SearchVideos = () => {
   const searchVideos = useSelector(store => store.youtubeData.searchVideos)
   const pageToken = useRef(null)
   const searchRef = useRef(null);
+  const [isMdOrMore, setIsMdOrMore] = useState(false)
+  const isMenuOpen = useSelector(store => store.app.isMenuOpen)
 
   const [searchParams] = useSearchParams()
   const dispatch = useDispatch();
@@ -43,24 +46,32 @@ const SearchVideos = () => {
   useEffect(() => {
     handleSearch(searchParams.get('search_query'))
   }, [])
+  useEffect(() => {
+    handleMdOrMore(setIsMdOrMore)
+  }, [isMdOrMore])
 
   useEffect(() => {
-    console.log("re-render")
-    document.addEventListener('scroll', handleScroll)
+    if (isMdOrMore) {
+      !isMenuOpen && document.addEventListener('scroll', handleScroll)
+    } else {
+      document.addEventListener('scroll', handleScroll)
+    }
     return () => {
       document.removeEventListener('scroll', handleScroll)
       clearTimeout(searchRef.current)
     }
-  }, [searchVideos])
+  }, [isMenuOpen])
 
   if (!searchVideos) return
 
   return (
-    <div className="w-screen mx-5">
-      {
-        searchVideos.map((info, i) => <SearchVideoContainer key={info.id + i} data={info} />)
-      }
-    </div>
+    <>
+      <div className={"mx-5"}>
+        {
+          searchVideos.map((info, i) => <SearchVideoContainer key={info.id + i} data={info} />)
+        }
+      </div>
+    </>
   )
 }
 

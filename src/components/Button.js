@@ -21,7 +21,7 @@ const Button = ({ data, isMouseScroll }) => {
   }
 
   return (
-    <button onClick={(e) => handleBtnClick(e)} className='rounded-lg bg-gray-200 whitespace-nowrap  px-4 py-2 my-2'>{title}</button>
+    <button onClick={(e) => handleBtnClick(e)} className='rounded-lg bg-gray-200 dark:bg-slate-900  whitespace-nowrap  px-4 py-2 my-2'>{title}</button>
   )
 }
 

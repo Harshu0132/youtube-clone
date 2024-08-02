@@ -4,10 +4,11 @@ import { YOUTUBE_CATEGORY } from '../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { addYoutubeCategories } from '../utils/videoSlice'
+import useYoutubeCategory from '../hooks/useYoutubeCategory'
 
 const ButtonList = () => {
     // const [youtubeCategory, setYoutubeCategory] = useState(null);
-    const youtubeCategory = useSelector((store)=>store.youtubeData.youtubeCategories)
+    const youtubeCategory = useSelector((store) => store.youtubeData.youtubeCategories)
     const [scrollCount, setScrollCount] = useState(0);
     const [maxWidth, setMaxWidth] = useState(0)
     const scrollRef = useRef(null)
@@ -15,13 +16,7 @@ const ButtonList = () => {
     const isMenuOpen = useSelector(store => store.app.isMenuOpen)
     const [mouseDownPos, setMouseDownPos] = useState({ x: 0, y: 0, time: 0 })
 
-    const dispatch = useDispatch()
-
-    const fetchData = async () => {
-        const data = await fetch(YOUTUBE_CATEGORY);
-        const json = await data.json();
-        dispatch(addYoutubeCategories(json.items))
-    }
+    useYoutubeCategory()
 
     const handleLeftClick = () => {
         scrollRef.current.classList.add("scroll-smooth")
@@ -60,15 +55,11 @@ const ButtonList = () => {
         }
     }
 
-    useEffect(() => {
-        fetchData()
-    }, [])
-
     if (!youtubeCategory) return
 
     return (
         <>
-            
+
             <div className={'mx-3 relative ' + (isMenuOpen ? " md:w-[70vw] w-[80vw]" : " md:w-[90vw] ")}>
                 <div className={'flex overflow-x-scroll gap-3 cursor-grab no-scroll'}
                     ref={scrollRef}
@@ -88,10 +79,10 @@ const ButtonList = () => {
                         youtubeCategory.map(data => <Button isMouseScroll={isMouseScroll} setIsMouseScroll={setIsMouseScroll} key={data.id} data={data.snippet} />)
                     }
                 </div>
-                <div className={'absolute top-0 h-full w-28 flex items-center bg-gradient-to-r from-white  cursor-pointer' + (scrollCount >= 5 ? " md:flex hidden" : " hidden")}>
+                <div className={'absolute top-0 h-full w-28 flex items-center bg-gradient-to-r from-white dark:from-slate-950 cursor-pointer' + (scrollCount >= 5 ? " md:flex hidden" : " hidden")}>
                     <FaChevronLeft className='p-2 h-7 w-7 rounded-full hover:bg-slate-300' onClick={handleLeftClick} />
                 </div>
-                <div className={'absolute top-0 right-0 h-full w-28 flex justify-end items-center bg-gradient-to-l from-white cursor-pointer' + (scrollCount <= maxWidth ? " md:flex hidden" : " hidden")}>
+                <div className={'absolute top-0 right-0 h-full w-28 flex justify-end items-center bg-gradient-to-l from-white dark:from-slate-950 cursor-pointer' + (scrollCount <= maxWidth ? " md:flex hidden" : " hidden")}>
                     <FaChevronRight className='p-2 h-7 w-7 rounded-full hover:bg-slate-300' onClick={handleRightClick} />
                 </div>
             </div>

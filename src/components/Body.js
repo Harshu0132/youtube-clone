@@ -8,15 +8,18 @@ import { handleMdOrMore } from '../helper/handleResize'
 const Body = () => {
     const isMenuOpen = useSelector(store => store.app.isMenuOpen)
     const [isMdOrMore, setIsMdOrMore] = useState(false)
+    const isDarkMode = useSelector(store => store.app.isDarkMode)
 
     useEffect(() => {
         handleMdOrMore(setIsMdOrMore)
     }, [isMdOrMore])
 
+    console.log(isMenuOpen)
+
     return (
-        <div className='dar'>
+        <div className={isDarkMode ? "dark" : ""}>
             <Header />
-            <div className={'flex w-screen h-screen md:h-auto ' + (isMenuOpen && isMdOrMore ? " overflow-y-hidden" : " ")}>
+            <div className={'flex w-screen  md:h-auto dark:text-white dark:bg-gray-950' + (isMenuOpen && isMdOrMore ? " h-screen overflow-y-hidden" : " ")}>
                 <Sidebar />
                 <Outlet />
             </div>

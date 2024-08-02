@@ -1,10 +1,12 @@
 import { commentData } from "../mocks/commentData"
+// import { USER_IMG_URL } from "../utils/constants"
+import { USER_IMG_URL } from "../utils/constants"
 
 const Comment = ({ data }) => {
     const { name, desc } = data
     return (
         <div className="flex my-2 ">
-            <img className="h-12" src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="user" />
+            <img className="h-10" src={USER_IMG_URL} alt="user" />
             <div className="py-1 ps-2">
                 <h1>{name}</h1>
                 <p>{desc} </p>

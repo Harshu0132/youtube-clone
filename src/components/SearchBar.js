@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { addSuggestion } from "../utils/searchSlice"
 import { useDispatch, useSelector } from "react-redux";
-import { SEARCH_ICON, YT_SUGGESTION_API_URL } from "../utils/constants";
+import { YT_SUGGESTION_API_URL } from "../utils/constants";
 import { useNavigate } from 'react-router-dom'
+import { IoSearchOutline } from "react-icons/io5";
 
 const SearchBar = ({ showSearchBar }) => {
     const [searchText, setSearchText] = useState("");
@@ -46,13 +47,13 @@ const SearchBar = ({ showSearchBar }) => {
     return (
         <>
             <div className={'col-span-8 my-auto md:block' + (showSearchBar ? " block" : " hidden")}>
-                <div className="flex items-center">
+                <div className="flex">
                     <input
                         onFocus={() => setShowSuggestion(true)}
                         onBlur={handleBlur}
-                        type="text" className='border border-gray-500 rounded-l-full px-3 w-3/4  py-1' value={searchText} placeholder='Search' onChange={(e) => setSearchText(e.target.value)} />
-                    <button className='border border-gray-500 bg-gray-200 px-3 py-2 rounded-r-full' onClick={() => handleSearch(searchText)}>
-                        <img className='object-cover w-4' src={SEARCH_ICON} alt="" />
+                        type="text" className='border dark:bg-gray-950 dark:text-slate-200 border-gray-500 rounded-l-full px-3 w-3/4  py-1' value={searchText} placeholder='Search' onChange={(e) => setSearchText(e.target.value)} />
+                    <button className='border border-gray-500 dark:bg-slate-800 bg-gray-200 px-3 py-[8.5px] rounded-r-full' onClick={() => handleSearch(searchText)}>
+                        <IoSearchOutline className='w-6 h-auto dark:text-slate-400' />
                     </button>
                     <br />
                 </div>
