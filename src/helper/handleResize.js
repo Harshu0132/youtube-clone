@@ -1,3 +1,3 @@
 export const handleMdOrMore = (setIsMdOrAbove) => {
-    setIsMdOrAbove(window.innerWidth >= 768)
+    setIsMdOrAbove(window.innerWidth < 768)
 }

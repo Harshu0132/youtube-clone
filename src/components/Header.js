@@ -12,7 +12,6 @@ const Header = () => {
         dispatch(toggleMenuOpen())
     }
 
-
     return (
         <div className='w-screen dark:bg-black bg-white'>
             <div className='grid grid-flow-col m-2 p-2 h-[11vh] shadow-lg my-auto'>
@@ -29,8 +28,6 @@ const Header = () => {
                 <div className={'flex col-span-2 cursor-pointer' + (showSearchBar ? " block" : " hidden")}>
                     <IoArrowBack className='w-6 h-auto' onClick={() => setShowSearchBar(!showSearchBar)} />
                 </div>
-
-
                 <SearchBar showSearchBar={showSearchBar} />
                 <button onClick={() => setShowSearchBar(!showSearchBar)} className={'md:hidden block flex items-center justify-end mr-4' + (!showSearchBar ? " block" : " hidden")}>
                     <IoSearchOutline className='w-6 h-auto' />

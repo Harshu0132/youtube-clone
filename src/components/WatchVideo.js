@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
-import { closeMenu, openMenu, toggleMenuOpen } from "../utils/appSlice"
+import { closeMenu } from "../utils/appSlice"
 import CommentBox from "./CommentBox"
 import LiveChat from './LiveChat'
 import { WatchVideoShimmer } from './Shimmer'
@@ -10,26 +10,14 @@ const WatchVideo = () => {
   const [searchParams] = useSearchParams()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
-  const [isMdOrAbove, setIsMdOrAbove] = useState(false)
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [])
 
-  const handleResize = () => {
-    setIsMdOrAbove(window.innerWidth >= 768)
-  }
-
   useEffect(() => {
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    if (isMdOrAbove) {
-      dispatch(closeMenu())
-    }else{
-      dispatch(openMenu())
-    }
-    return () => window.removeEventListener('resize', handleResize)
-  }, [isMdOrAbove])
+    dispatch(closeMenu())
+  }, [])
 
   return (
     <div className='p-3 md:mx-5 mx-0 w-screen'>

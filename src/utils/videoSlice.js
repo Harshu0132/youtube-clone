@@ -18,8 +18,8 @@ const videoSlice = createSlice({
         addSearchVideos: (state, action) => {
             state.searchVideos = action.payload
         },
-        addCategoryVideos: (state, action) => {
-            state.categoryVideos = [...state.videos, ...action.payload]
+        appendSearchVideos: (state, action) => {
+            state.searchVideos = [...state.searchVideos, ...action.payload]
         },
         addYoutubeCategories: (state, action) => {
             state.youtubeCategories = action.payload
@@ -27,6 +27,6 @@ const videoSlice = createSlice({
     }
 })
 
-export const { addVideos, addSearchVideos, addCategoryVideos, appendVideos, addYoutubeCategories } = videoSlice.actions
+export const { addVideos, addSearchVideos, appendSearchVideos, appendVideos, addYoutubeCategories } = videoSlice.actions
 
 export default videoSlice.reducer;
