@@ -53,8 +53,8 @@ const LiveChat = () => {
                             </div>
                             <form onSubmit={(e) => e.preventDefault()}>
                                 <div className="w-full flex mx-3 my-2">
-                                    <input type="text" value={replay} className="border rounded-lg py-1 w-full border-gray-400 px-2" placeholder="Reply...." onChange={(e) => setReply(e.target.value)} />
-                                    <button disabled={!replay ? true : false} className="text-white rounded-lg bg-green-400 ms-1 px-4" onClick={replyHandler}>Reply</button>
+                                    <input type="text" value={replay} className="border dark:text-slate-400 dark:bg-slate-800 rounded-lg py-1 w-full border-gray-400 px-2" placeholder="Reply...." onChange={(e) => setReply(e.target.value)} />
+                                    <button disabled={!replay ? true : false} className="text-white dark:bg-slate-400 rounded-lg bg-green-400 ms-1 px-4" onClick={replyHandler}>Reply</button>
                                 </div>
                             </form>
                         </>

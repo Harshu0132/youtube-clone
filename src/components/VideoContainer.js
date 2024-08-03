@@ -11,22 +11,27 @@ const VideoContainer = () => {
     const pageToken = useRef(null)
     const youtubeData = useSelector(store => store.youtubeData.videos)
     const youtubeDataRef = useRef(null)
-    const [loading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [isMdOrMore, setIsMdOrMore] = useState(false)
     const isMenuOpen = useSelector(store => store.app.isMenuOpen)
 
 
     const fetchYoutubeData = async () => {
-        if (pageToken.current === false) return
-        const data = await fetch(YOUTUBE_URL + (pageToken.current ? "&pageToken=" + pageToken.current : ""))
-        const json = await data.json()
-        if (json.nextPageToken) {
-            if (pageToken.current === null) dispatch(addVideos(json.items))
-            else dispatch(appendVideos(json.items))
-            pageToken.current = json.nextPageToken
-        } else {
-            pageToken.current = false
+        try {
+            const data = await fetch(YOUTUBE_URL + (pageToken.current ? "&pageToken=" + pageToken.current : ""))
+            const json = await data.json()
+            if (json.nextPageToken) {
+                if (pageToken.current === null) dispatch(addVideos(json.items))
+                else dispatch(appendVideos(json.items))
+                pageToken.current = json.nextPageToken
+            } else {
+                pageToken.current = false
+            }
+            setLoading(() => false)
+        } catch (error) {
+
         }
+
     }
     const handleScrollEvent = () => {
         const scrollHeight = document.documentElement.scrollHeight
@@ -34,9 +39,11 @@ const VideoContainer = () => {
         const innerHeight = window.innerHeight
 
         if (scrollTop + innerHeight >= scrollHeight) {
+            if (pageToken.current === false) return
+            setLoading(() => true)
             youtubeDataRef.current = setTimeout(() => {
                 fetchYoutubeData()
-            }, 500);
+            }, 200);
         }
     }
 
@@ -48,7 +55,6 @@ const VideoContainer = () => {
     useEffect(() => {
         handleMdOrMore(setIsMdOrMore)
     }, [isMdOrMore])
-
 
     useEffect(() => {
         if (isMdOrMore) {
@@ -77,7 +83,7 @@ const VideoContainer = () => {
                     youtubeData.map((video, i) => <VideoCard key={video.id + i} info={video} />)
                 }
                 {
-                    loading && <Shimmer />
+                    loading && <Shimmer /> 
                 }
             </div>
         </div>

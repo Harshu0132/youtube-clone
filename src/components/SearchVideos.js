@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { SEARCH_LIST_BY_KEYWORD, YOUTUBE_API_KEY } from "../utils/constants";
 import { addSearchVideos, appendSearchVideos } from "../utils/videoSlice";
 import { handleMdOrMore } from "../helper/handleResize";
+import Shimmer from "./Shimmer";
 
 const SearchVideos = () => {
   const searchVideos = useSelector(store => store.youtubeData.searchVideos)
   const pageToken = useRef(null)
   const searchRef = useRef(null);
   const [isMdOrMore, setIsMdOrMore] = useState(false)
+  const [loading, setLoading] = useState(false)
   const isMenuOpen = useSelector(store => store.app.isMenuOpen)
 
   const [searchParams] = useSearchParams()
@@ -18,6 +20,7 @@ const SearchVideos = () => {
 
   const handleSearch = async (query) => {
     if (pageToken.current === false) return
+
     try {
       if (query.length === 0) return
       const data = await fetch(SEARCH_LIST_BY_KEYWORD + query + "&key=" + YOUTUBE_API_KEY + (pageToken.current ? "&pageToken=" + pageToken.current : ""));
@@ -29,6 +32,7 @@ const SearchVideos = () => {
       } else {
         pageToken.current = false
       }
+      setLoading(false)
     } catch (error) { }
   }
 
@@ -37,6 +41,8 @@ const SearchVideos = () => {
     const scrollTop = document.documentElement.scrollTop
     const innerHeight = window.innerHeight
     if (scrollTop + innerHeight >= scrollHeight) {
+      if (pageToken.current === false) return
+      setLoading(true)
       searchRef.current = setTimeout(() => {
         handleSearch(searchParams.get('search_query'))
       }, 200)
@@ -69,6 +75,9 @@ const SearchVideos = () => {
       <div className={"mx-5"}>
         {
           searchVideos.map((info, i) => <SearchVideoContainer key={info.id + i} data={info} />)
+        }
+        {
+          loading && <Shimmer />
         }
       </div>
     </>

@@ -6,10 +6,10 @@ const Comment = ({ data }) => {
     const { name, desc } = data
     return (
         <div className="flex my-2 ">
-            <img className="h-10" src={USER_IMG_URL} alt="user" />
+            <img className="h-10 mt-1" src={USER_IMG_URL} alt="user" />
             <div className="py-1 ps-2">
-                <h1>{name}</h1>
-                <p>{desc} </p>
+                <h1 className="dark:text-slate-100">{name}</h1>
+                <p className="dark:text-slate-400">{desc} </p>
             </div>
         </div>
     )

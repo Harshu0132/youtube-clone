@@ -8,9 +8,13 @@ const useYoutubeCategory = () => {
     const youtubeCategories = useSelector(store => store.youtubeData.youtubeCategories)
 
     const fetchData = async () => {
-        const data = await fetch(YOUTUBE_CATEGORY);
-        const json = await data.json();
-        dispatch(addYoutubeCategories(json.items))
+        try {
+            const data = await fetch(YOUTUBE_CATEGORY);
+            const json = await data.json();
+            dispatch(addYoutubeCategories(json.items))
+        } catch (error) {
+        }
+
     }
 
     useEffect(() => {

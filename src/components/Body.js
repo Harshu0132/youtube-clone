@@ -14,12 +14,10 @@ const Body = () => {
         handleMdOrMore(setIsMdOrMore)
     }, [isMdOrMore])
 
-    console.log(isMenuOpen)
-
     return (
         <div className={isDarkMode ? "dark" : ""}>
             <Header />
-            <div className={'flex w-screen  md:h-auto dark:text-white dark:bg-gray-950' + (isMenuOpen && isMdOrMore ? " h-screen overflow-y-hidden" : " ")}>
+            <div className={'flex w-screen  md:h-auto dark:text-white dark:bg-slate-950' + (isMenuOpen && isMdOrMore ? " h-screen overflow-y-hidden" : " ")}>
                 <Sidebar />
                 <Outlet />
             </div>
