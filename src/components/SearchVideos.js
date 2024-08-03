@@ -45,7 +45,7 @@ const SearchVideos = () => {
       setLoading(true)
       searchRef.current = setTimeout(() => {
         handleSearch(searchParams.get('search_query'))
-      }, 200)
+      }, 400)
     }
   }
 

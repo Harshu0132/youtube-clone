@@ -43,7 +43,7 @@ const VideoContainer = () => {
             setLoading(() => true)
             youtubeDataRef.current = setTimeout(() => {
                 fetchYoutubeData()
-            }, 200);
+            }, 400);
         }
     }
 
