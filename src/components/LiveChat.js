@@ -59,7 +59,7 @@ const LiveChat = () => {
                             </form>
                         </>
                         :
-                        <button onClick={() => isShowChat((val) => !val)} className="bg-gray-300 md:mt-0 mt-3 text-center px-2 py-1  rounded-lg mb-2 dark:bg-slate-800">Show Chat</button>
+                        <button onClick={() => isShowChat((val) => !val)} className="bg-gray-300 md:mt-0 mt-3 text-center px-2 py-1  rounded-lg mb-2 dark:bg-slate-800">Live Chat</button>
                 }
 
 

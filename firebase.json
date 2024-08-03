@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "ytube-a52fa",
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
