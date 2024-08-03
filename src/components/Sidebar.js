@@ -49,22 +49,22 @@ const Sidebar = () => {
             <ul>
                 <li className="pb-2 ms-5">
                     <button onClick={handleNavigation}><h2 className="cursor-pointer">Home</h2></button>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[2].snippet.title)}>{youtubeCategory[2].snippet.title}</h2>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[4].snippet.title)}>{youtubeCategory[4].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[4].snippet.title)}>{youtubeCategory[4].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[2].snippet.title)}>{youtubeCategory[2].snippet.title}</h2>
                 </li>
                 <li className="py-2 ms-5">
                     <h2 className="font-bold">Watch Later</h2>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[7].snippet.title)}>{youtubeCategory[7].snippet.title}</h2>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[2].snippet.title)}>{youtubeCategory[2].snippet.title}</h2>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[4].snippet.title)}>{youtubeCategory[4].snippet.title}</h2>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[0].snippet.title)}>{youtubeCategory[0].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[7].snippet.title)}>{youtubeCategory[7].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[2].snippet.title)}>{youtubeCategory[2].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[4].snippet.title)}>{youtubeCategory[4].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[0].snippet.title)}>{youtubeCategory[0].snippet.title}</h2>
                 </li>
                 <li className="py-2 ms-5">
                     <h2 className="font-bold">Subscription</h2>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[7].snippet.title)}>{youtubeCategory[7].snippet.title}</h2>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[2].snippet.title)}>{youtubeCategory[2].snippet.title}</h2>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[4].snippet.title)}>{youtubeCategory[4].snippet.title}</h2>
-                    <h2 className="cursor-pointer" onClick={() => handleBtnClick(youtubeCategory[0].snippet.title)}>{youtubeCategory[0].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[7].snippet.title)}>{youtubeCategory[7].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[2].snippet.title)}>{youtubeCategory[2].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[4].snippet.title)}>{youtubeCategory[4].snippet.title}</h2>
+                    <h2 className="cursor-pointer my-3 md:my-0" onClick={() => handleBtnClick(youtubeCategory[0].snippet.title)}>{youtubeCategory[0].snippet.title}</h2>
                 </li>
 
 

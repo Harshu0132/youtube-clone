@@ -40,7 +40,7 @@ const SearchVideos = () => {
     const scrollHeight = document.documentElement.scrollHeight
     const scrollTop = document.documentElement.scrollTop
     const innerHeight = window.innerHeight
-    if (scrollTop + innerHeight >= scrollHeight) {
+    if (scrollTop + innerHeight >= scrollHeight - 176) {
       if (pageToken.current === false) return
       setLoading(true)
       searchRef.current = setTimeout(() => {

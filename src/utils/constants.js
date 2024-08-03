@@ -13,9 +13,9 @@ export const LIVE_CHAT_COUNT = 1000
 
 export const YT_SUGGESTION_API_URL = "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="
 
-export const YOUTUBE_URL = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=12&chart=mostPopular&regionCode=IN&key=" + YOUTUBE_API_KEY
+export const YOUTUBE_URL = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=15&chart=mostPopular&regionCode=IN&key=" + YOUTUBE_API_KEY
 
-export const SEARCH_LIST_BY_KEYWORD = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q="
+export const SEARCH_LIST_BY_KEYWORD = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&q="
 
 export const YOUTUBE_CATEGORY = "https://youtube.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode=US&key=" + YOUTUBE_API_KEY
 
