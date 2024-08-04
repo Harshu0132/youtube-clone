@@ -8,9 +8,7 @@ import { handleMdOrMore } from '../helper/handleResize'
 
 const VideoContainer = () => {
     const dispatch = useDispatch()
-    // const pageToken = useRef(null)
     const youtubeData = useSelector(store => store.youtubeData.videos)
-    const youtubeDataRef = useRef(null)
     const [loading, setLoading] = useState(false)
     const [isMdOrMore, setIsMdOrMore] = useState(false)
     const isMenuOpen = useSelector(store => store.app.isMenuOpen)
@@ -19,18 +17,19 @@ const VideoContainer = () => {
 
     const fetchYoutubeData = async () => {
         try {
-            if (pageToken !== pageTokenRef.current) return
+            setLoading(() => true)
             const data = await fetch(YOUTUBE_URL + (pageToken ? "&pageToken=" + pageToken : ""))
             const json = await data.json()
             if (json.nextPageToken) {
                 if (pageToken === null) dispatch(addVideos(json.items))
                 else dispatch(appendVideos(json.items))
-                setPageToken(json.nextPageToken)
+                pageTokenRef.current = json.nextPageToken
             } else {
-                setPageToken(false)
+                pageTokenRef.current = false
             }
             setLoading(() => false)
         } catch (error) {
+            console.log(error);
         }
     }
 
@@ -39,36 +38,34 @@ const VideoContainer = () => {
         const scrollTop = document.documentElement.scrollTop
         const innerHeight = window.innerHeight
         if (scrollTop + innerHeight >= scrollHeight - 176) {
-            if (pageTokenRef.current === false) return
-            setLoading(() => true)
-            youtubeDataRef.current = setTimeout(() => {
-                fetchYoutubeData()
-            }, 400);
+            setPageToken(pageTokenRef.current)
         }
     }
 
     useEffect(() => {
-        pageTokenRef.current = pageToken
-    }, [pageToken])
+    }, [loading])
 
     useEffect(() => {
-        fetchYoutubeData()
-    }, [])
+        if (pageToken === null) {
+            if (youtubeData.length === 0) {
+                fetchYoutubeData()
+            }
+        }else{
+            if (pageTokenRef.current === false) return
+            fetchYoutubeData()
+        }
+
+    }, [pageToken])
 
     useEffect(() => {
         handleMdOrMore(setIsMdOrMore)
     }, [isMdOrMore])
 
     useEffect(() => {
-        if (isMdOrMore) {
-            !isMenuOpen && document.addEventListener('scroll', handleScrollEvent)
-        } else {
-            document.addEventListener('scroll', handleScrollEvent)
-        }
-
+        if (isMdOrMore) !isMenuOpen && window.addEventListener('scroll', handleScrollEvent)
+        else window.addEventListener('scroll', handleScrollEvent)
         return () => {
-            document.removeEventListener('scroll', handleScrollEvent)
-            clearTimeout(youtubeDataRef.current)
+            window.removeEventListener('scroll', handleScrollEvent)
         }
     }, [isMenuOpen])
 

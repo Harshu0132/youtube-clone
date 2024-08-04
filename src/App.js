@@ -19,11 +19,8 @@ const App = () => {
                     // index: true,
                     element: <MainContainer />
                 },
-
                 {
-                    path: "/practicle",
-                    index: true,
-
+                    path: "/practical",
                     element: <Practical/>
                 },
                 {

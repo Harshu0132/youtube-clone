@@ -9,8 +9,8 @@ import Shimmer from "./Shimmer";
 
 const SearchVideos = () => {
   const searchVideos = useSelector(store => store.youtubeData.searchVideos)
-  const pageToken = useRef(null)
-  const searchRef = useRef(null);
+  const pageTokenRef = useRef(null)
+  const [pageToken, setPageToken] = useState(null)
   const [isMdOrMore, setIsMdOrMore] = useState(false)
   const [loading, setLoading] = useState(false)
   const isMenuOpen = useSelector(store => store.app.isMenuOpen)
@@ -20,24 +20,19 @@ const SearchVideos = () => {
 
 
   const handleSearch = async (query) => {
-    if (searchText !== query) {
-      pageToken.current = null
-    }
+    if (searchText !== query)  pageTokenRef.current = null
 
     try {
-      console.log("pageToken.current.prevPageToken............>",pageToken.current.prevPageToken);
-      console.log("pageToken.current.nextPageToken.........>",pageToken.current.nextPageToken);
-      
-      if (query.length === 0 || pageToken.current.nextPageToken === false) return
-      const data = await fetch(SEARCH_LIST_BY_KEYWORD + query + "&key=" + YOUTUBE_API_KEY + (pageToken.current.nextPageToken ? "&pageToken=" + pageToken.current.nextPageToken : ""));
+      if (query.length === 0 || pageTokenRef.current === false) return
+      setLoading(true)
+      const data = await fetch(SEARCH_LIST_BY_KEYWORD + query + "&key=" + YOUTUBE_API_KEY + (pageTokenRef.current ? "&pageToken=" + pageTokenRef.current : ""));
       const json = await data.json()
       if (json.nextPageToken) {
-        if (pageToken.current === null) dispatch(addSearchVideos(json.items))
+        if (pageTokenRef.current === null) dispatch(addSearchVideos(json.items))
         else dispatch(appendSearchVideos(json.items))
-        pageToken.current.prevPageToken = pageToken.current.prevPageToken
-        pageToken.current.nextPageToken = json.nextPageToken
+        pageTokenRef.current = json.nextPageToken
       } else {
-        pageToken.current.nextPageToken = false
+        pageTokenRef.current = false
       }
       setLoading(false)
       setSearchText(searchParams.get('search_query'))
@@ -49,17 +44,15 @@ const SearchVideos = () => {
     const scrollTop = document.documentElement.scrollTop
     const innerHeight = window.innerHeight
     if (scrollTop + innerHeight >= scrollHeight - 176) {
-      if (pageToken.current === false) return
-      setLoading(true)
-      searchRef.current = setTimeout(() => {
-        handleSearch(searchParams.get('search_query'))
-      }, 400)
+      if (pageTokenRef.current === false) return
+      
+      setPageToken(pageTokenRef.current)
     }
   }
 
   useEffect(() => {
     handleSearch(searchParams.get('search_query'))
-  }, [searchParams.get('search_query')])
+  }, [searchParams.get('search_query'), pageToken])
 
   useEffect(() => {
     handleMdOrMore(setIsMdOrMore)
@@ -73,7 +66,6 @@ const SearchVideos = () => {
     }
     return () => {
       document.removeEventListener('scroll', handleScroll)
-      clearTimeout(searchRef.current)
     }
   }, [isMenuOpen])
 
