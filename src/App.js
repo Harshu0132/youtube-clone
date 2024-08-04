@@ -5,6 +5,7 @@ import Body from "./components/Body"
 import MainContainer from './components/MainContainer';
 import WatchVideo from './components/WatchVideo';
 import SearchVideos from './components/SearchVideos';
+import Practical from "./components/Practical";
 
 
 const App = () => {
@@ -17,6 +18,13 @@ const App = () => {
                     path: "/",
                     // index: true,
                     element: <MainContainer />
+                },
+
+                {
+                    path: "/practicle",
+                    index: true,
+
+                    element: <Practical/>
                 },
                 {
                     path: "watch",

@@ -14,25 +14,33 @@ const SearchVideos = () => {
   const [isMdOrMore, setIsMdOrMore] = useState(false)
   const [loading, setLoading] = useState(false)
   const isMenuOpen = useSelector(store => store.app.isMenuOpen)
-
   const [searchParams] = useSearchParams()
+  const [searchText, setSearchText] = useState("")
   const dispatch = useDispatch();
 
+
   const handleSearch = async (query) => {
-    if (pageToken.current === false) return
+    if (searchText !== query) {
+      pageToken.current = null
+    }
 
     try {
-      if (query.length === 0) return
-      const data = await fetch(SEARCH_LIST_BY_KEYWORD + query + "&key=" + YOUTUBE_API_KEY + (pageToken.current ? "&pageToken=" + pageToken.current : ""));
+      console.log("pageToken.current.prevPageToken............>",pageToken.current.prevPageToken);
+      console.log("pageToken.current.nextPageToken.........>",pageToken.current.nextPageToken);
+      
+      if (query.length === 0 || pageToken.current.nextPageToken === false) return
+      const data = await fetch(SEARCH_LIST_BY_KEYWORD + query + "&key=" + YOUTUBE_API_KEY + (pageToken.current.nextPageToken ? "&pageToken=" + pageToken.current.nextPageToken : ""));
       const json = await data.json()
       if (json.nextPageToken) {
         if (pageToken.current === null) dispatch(addSearchVideos(json.items))
         else dispatch(appendSearchVideos(json.items))
-        pageToken.current = json.nextPageToken
+        pageToken.current.prevPageToken = pageToken.current.prevPageToken
+        pageToken.current.nextPageToken = json.nextPageToken
       } else {
-        pageToken.current = false
+        pageToken.current.nextPageToken = false
       }
       setLoading(false)
+      setSearchText(searchParams.get('search_query'))
     } catch (error) { }
   }
 
@@ -51,10 +59,11 @@ const SearchVideos = () => {
 
   useEffect(() => {
     handleSearch(searchParams.get('search_query'))
-  }, [])
+  }, [searchParams.get('search_query')])
+
   useEffect(() => {
     handleMdOrMore(setIsMdOrMore)
-  }, [isMdOrMore])
+  }, [isMdOrMore, searchVideos])
 
   useEffect(() => {
     if (isMdOrMore) {
@@ -72,7 +81,7 @@ const SearchVideos = () => {
 
   return (
     <>
-      <div className={"mx-5"}>
+      <div>
         {
           searchVideos.map((info, i) => <SearchVideoContainer key={info.id + i} data={info} />)
         }

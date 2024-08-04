@@ -8,37 +8,38 @@ import { handleMdOrMore } from '../helper/handleResize'
 
 const VideoContainer = () => {
     const dispatch = useDispatch()
-    const pageToken = useRef(null)
+    // const pageToken = useRef(null)
     const youtubeData = useSelector(store => store.youtubeData.videos)
     const youtubeDataRef = useRef(null)
     const [loading, setLoading] = useState(false)
     const [isMdOrMore, setIsMdOrMore] = useState(false)
     const isMenuOpen = useSelector(store => store.app.isMenuOpen)
-
+    const [pageToken, setPageToken] = useState(null)
+    const pageTokenRef = useRef(null)
 
     const fetchYoutubeData = async () => {
         try {
-            const data = await fetch(YOUTUBE_URL + (pageToken.current ? "&pageToken=" + pageToken.current : ""))
+            if (pageToken !== pageTokenRef.current) return
+            const data = await fetch(YOUTUBE_URL + (pageToken ? "&pageToken=" + pageToken : ""))
             const json = await data.json()
             if (json.nextPageToken) {
-                if (pageToken.current === null) dispatch(addVideos(json.items))
+                if (pageToken === null) dispatch(addVideos(json.items))
                 else dispatch(appendVideos(json.items))
-                pageToken.current = json.nextPageToken
+                setPageToken(json.nextPageToken)
             } else {
-                pageToken.current = false
+                setPageToken(false)
             }
             setLoading(() => false)
         } catch (error) {
-
         }
-
     }
+
     const handleScrollEvent = () => {
         const scrollHeight = document.documentElement.scrollHeight
         const scrollTop = document.documentElement.scrollTop
         const innerHeight = window.innerHeight
         if (scrollTop + innerHeight >= scrollHeight - 176) {
-            if (pageToken.current === false) return
+            if (pageTokenRef.current === false) return
             setLoading(() => true)
             youtubeDataRef.current = setTimeout(() => {
                 fetchYoutubeData()
@@ -47,9 +48,12 @@ const VideoContainer = () => {
     }
 
     useEffect(() => {
+        pageTokenRef.current = pageToken
+    }, [pageToken])
+
+    useEffect(() => {
         fetchYoutubeData()
     }, [])
-
 
     useEffect(() => {
         handleMdOrMore(setIsMdOrMore)
@@ -82,7 +86,7 @@ const VideoContainer = () => {
                     youtubeData.map((video, i) => <VideoCard key={video.id + i} info={video} />)
                 }
                 {
-                    loading && <Shimmer /> 
+                    loading && <Shimmer />
                 }
             </div>
         </div>
