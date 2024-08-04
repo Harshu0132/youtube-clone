@@ -31,7 +31,7 @@ const Header = () => {
                     </div>
                 </div>
                 <div className={'flex col-span-2 cursor-pointer' + (showSearchBar ? " block" : " hidden")}>
-                    <IoArrowBack className='w-6 h-auto' onClick={() => setShowSearchBar(!showSearchBar)} />
+                    <IoArrowBack className='w-6 h-auto dark:text-white' onClick={() => setShowSearchBar(!showSearchBar)} />
                 </div>
                 <SearchBar showSearchBar={showSearchBar} />
                 <button onClick={() => setShowSearchBar(!showSearchBar)} className={'md:hidden block flex items-center justify-end mr-4' + (!showSearchBar ? " block" : " hidden")}>

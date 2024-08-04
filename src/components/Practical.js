@@ -8,8 +8,6 @@ const Practical = () => {
 
     const handleCnt = function () {
         if (cntRef.current !== cnt) return
-        console.log("cntRef.current.........>", cntRef.current)
-        console.log("cnt.........>", cnt)
         setCnt(cnt + 1)
     }
 

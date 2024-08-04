@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Button from './Button'
-import { YOUTUBE_CATEGORY } from '../utils/constants'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import { addYoutubeCategories } from '../utils/videoSlice'
 import useYoutubeCategory from '../hooks/useYoutubeCategory'
 
 const ButtonList = () => {

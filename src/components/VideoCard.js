@@ -25,7 +25,7 @@ export const SearchVideoCard = ({ info }) => {
   const { thumbnails, channelTitle, title, description } = info.snippet
   const { videoId } = info.id
   return (
-    <div className='px-3 my-4 w-80 md:w-auto'>
+    <div className='px-3 my-4 w-80 md:w-auto mx-auto'>
       <div className='cursor-pointer'>
         <Link to={"/watch?v=" + videoId}>
           <div className='flex md:flex-row flex-col bg-gray-100 md:bg-white dark:bg-slate-800 rounded-lg'>

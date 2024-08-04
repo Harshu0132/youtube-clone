@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { addSuggestion } from "../utils/searchSlice"
 import { useDispatch, useSelector } from "react-redux";

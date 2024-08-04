@@ -1,21 +1,13 @@
-import React, { useEffect } from 'react'
-import { addSearchVideos } from '../utils/videoSlice'
-import { useDispatch } from 'react-redux'
-import { SEARCH_LIST_BY_KEYWORD, YOUTUBE_API_KEY } from '../utils/constants'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Button = ({ data, isMouseScroll }) => {
   const { title } = data
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-
   const handleBtnClick = async (e) => {
     if (isMouseScroll) return
     try {
       if (title.length === 0) return
-      const data = await fetch(SEARCH_LIST_BY_KEYWORD + title + "&key=" + YOUTUBE_API_KEY);
-      const json = await data.json()
-      dispatch(addSearchVideos(json.items))
       navigate("/results?search_query=" + title)
     } catch (error) { }
   }

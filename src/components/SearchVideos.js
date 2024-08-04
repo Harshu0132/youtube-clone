@@ -18,7 +18,6 @@ const SearchVideos = () => {
   const [searchText, setSearchText] = useState("")
   const dispatch = useDispatch();
 
-
   const handleSearch = async (query) => {
     if (searchText !== query)  pageTokenRef.current = null
 
@@ -45,7 +44,6 @@ const SearchVideos = () => {
     const innerHeight = window.innerHeight
     if (scrollTop + innerHeight >= scrollHeight - 176) {
       if (pageTokenRef.current === false) return
-      
       setPageToken(pageTokenRef.current)
     }
   }
@@ -73,7 +71,7 @@ const SearchVideos = () => {
 
   return (
     <>
-      <div>
+      <div className="w-full">
         {
           searchVideos.map((info, i) => <SearchVideoContainer key={info.id + i} data={info} />)
         }
